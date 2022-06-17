@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="adonetCourseProject.Purchasecontrol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:adonetCourseProject"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="880">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Dictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="200*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <TextBox Name="tbSearch" Grid.Row="0" Margin="0 15" Width="250" Style="{StaticResource tbSearch}" TextChanged="tbSearch_TextChanged"/>
+            <Button Name="btnSearch"  Margin= "5 0 170 0" Style="{StaticResource btnTextbox}" Click="btnSearch_Click" />
+            <Button  Name="btnAdd" Style="{DynamicResource btnadd}" Click="btnAdd_Click">
+
+            </Button>
+            <Button Name="btnDelete" Style="{StaticResource btndelete}" Click="btnDelete_Click">
+
+            </Button>
+            <Button Name="btnEdit" Style="{StaticResource btnedit}" Click="btnEdit_Click">
+
+            </Button>
+        </StackPanel>
+
+
+
+
+
+        <ListView Grid.Row="1" x:Name="lvPurchases" Margin="50,0,0,0" FontStyle="Italic" >
+          
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="Продукт">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+
+
+                                    <TreeView BorderThickness="0" Background="Transparent">
+
+
+                                        <TreeViewItem Loaded="tvProduct_Expanded" Name="tviProduct" Expanded="tvProduct_Expanded" Header="{Binding ElementName=tbName,Path=Text}">
+                                            
+                                            <StackPanel >
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Название:"/>
+                                                    <TextBox Name="tbName" Text="{Binding Product.Name}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Цена:"/>
+                                                    <TextBox Text="{Binding Product.Price}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Вес:"/>
+                                                    <TextBox Text="{Binding Product.Weight}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Описание:"/>
+                                                    <TextBox Text="{Binding Product.Description}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </TreeViewItem>
+                                    </TreeView>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Цена" >
+
+                        <GridViewColumn.CellTemplate>
+
+                            <DataTemplate>
+                                <TextBox Text="{Binding Price}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Header="Количество">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Quantity}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Header="Дата покупки">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker Text="{Binding DateP }"  Style="{StaticResource dtpInner}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn  Header="Дата доставки">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <DatePicker Text="{Binding DateS}" Style="{StaticResource dtpInner}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn  Header="Доставщик">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding DeliveryCompany}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Header="Поставщик" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <StackPanel>
+                                    <TreeView BorderThickness="0" Background="Transparent" >
+
+
+                                        <TreeViewItem  Loaded="tvProduct_Expanded"  Expanded="tvProduct_Expanded" Header="{Binding ElementName=tbCName,Path=Text}" >
+
+                                            <StackPanel >
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock  Text="Название:"/>
+                                                    <TextBox Name="tbCName" Text="{Binding Supplier.CompanyName}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Контактное имя:"/>
+                                                    <TextBox Text="{Binding Supplier.ContactName}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Адрес:"/>
+                                                    <TextBox Text="{Binding Supplier.Address}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Телефон:"/>
+                                                    <TextBox Text="{Binding Supplier.Phone}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                                <StackPanel  Orientation="Horizontal">
+                                                    <TextBlock Text="Email:"/>
+                                                    <TextBox Text="{Binding Supplier.Email}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Описание:"/>
+                                                    <TextBox Text="{Binding Supplier.Description}" Style="{StaticResource tbInner}" IsReadOnly="True" MouseDoubleClick="TextBox_MouseDoubleClick" LostFocus="TextBox_LostFocus"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </TreeViewItem>
+                                    </TreeView>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</UserControl>
